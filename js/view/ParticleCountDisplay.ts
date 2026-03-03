@@ -23,7 +23,7 @@ import ShredFluent from '../ShredFluent.js';
 import ParticleNode from './ParticleNode.js';
 
 // constants
-const TEXT_OPTIONS: TextOptions = { font: new PhetFont( 12 ), maxWidth: 100 };
+const TEXT_OPTIONS: TextOptions = { font: new PhetFont( 12 ), maxWidth: 120 };
 const HORIZONTAL_SPACING = 5;
 
 type SelfOptions = {
@@ -52,9 +52,16 @@ class ParticleCountDisplay extends Panel {
 
     // Create label Text nodes, with an AlignGroup so their right edges align
     const titleAlignGroup = new AlignGroup( { matchVertical: true } );
-    const protonTitleText = new Text( ShredFluent.protonsColonStringProperty, TEXT_OPTIONS );
-    const neutronTitleText = new Text( ShredFluent.neutronsColonStringProperty, TEXT_OPTIONS );
-    const electronTitleText = new Text( ShredFluent.electronsColonStringProperty, TEXT_OPTIONS );
+    const locale = new URLSearchParams( window.location.search ).get( 'locale' ) || 'en';
+    const labelMap: Record<string, { p: string; n: string; e: string }> = {
+      fr: { p: 'Protons :', n: 'Neutrons :', e: 'Électrons :' },
+      nl: { p: 'Protonen:', n: 'Neutronen:', e: 'Elektronen:' },
+      en: { p: 'Protons:', n: 'Neutrons:', e: 'Electrons:' }
+    };
+    const labels = labelMap[ locale ] || labelMap.en;
+    const protonTitleText = new Text( labels.p, TEXT_OPTIONS );
+    const neutronTitleText = new Text( labels.n, TEXT_OPTIONS );
+    const electronTitleText = new Text( labels.e, TEXT_OPTIONS );
 
     const nucleonRadius = 5; // Determined empirically
     const electronRadius = nucleonRadius * 0.6;
