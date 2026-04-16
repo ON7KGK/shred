@@ -46,7 +46,7 @@ const ShredColors = {
   } ),
 
   centerXColorProperty: new ProfileColorProperty( shred, 'centerXColorProperty', {
-    default: '#DE6D02'
+    default: '#28D15A'
   } ),
 
   positiveColorProperty: new ProfileColorProperty( shred, 'positiveColorProperty', {
